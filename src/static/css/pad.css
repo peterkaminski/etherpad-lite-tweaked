@@ -815,6 +815,10 @@ table#otheruserstable {
 .buttonicon-savedRevision {
   background-position: 0px -493px
 }
+.buttonicon-gohome {
+  background-image: url('../../static/img/etherpad_lite_tweaked_icons.png');
+  background-position: 0px 0px
+}
 #focusprotector {
   z-index: 100;
   position: absolute;

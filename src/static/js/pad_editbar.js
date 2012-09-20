@@ -120,7 +120,11 @@ var padeditbar = (function()
     {  
       if (self.isEnabled())
       {
-        if(cmd == "showusers")
+        if (cmd == "gohome")
+	{
+	  window.location.href = "/p/home";
+	}
+        else if(cmd == "showusers")
         {
           self.toogleDropDown("users");
         }
