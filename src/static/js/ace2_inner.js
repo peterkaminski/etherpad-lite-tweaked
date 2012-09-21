@@ -3225,8 +3225,12 @@ function Ace2Inner(){
       {
         try
         {
-          var newWindow = window.open(n.href, '_blank');
-          newWindow.focus();
+	  if (n.target == '_self') {
+	    top.location.href = n.href;
+	  }else{
+            var newWindow = window.open(n.href, '_blank');
+            newWindow.focus();
+	  }
         }
         catch (e)
         {
