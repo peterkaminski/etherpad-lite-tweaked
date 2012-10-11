@@ -126,21 +126,25 @@ var padeditbar = (function()
 	}
         else if(cmd == "showusers")
         {
-          self.toogleDropDown("users");
+          self.toggleDropDown("users");
         }
         else if (cmd == 'settings')
         {
-              self.toogleDropDown("settings");
+              self.toggleDropDown("settings");
+        }
+        else if (cmd == 'connectivity')
+        {
+              self.toggleDropDown("connectivity");
         }
         else if (cmd == 'embed')
         {
           self.setEmbedLinks();
           $('#linkinput').focus().select();
-          self.toogleDropDown("embed");
+          self.toggleDropDown("embed");
         }
         else if (cmd == 'import_export')
         {
-	      self.toogleDropDown("importexport");
+	      self.toggleDropDown("importexport");
         }
         else if (cmd == 'savedRevision')
         {
@@ -186,13 +190,14 @@ var padeditbar = (function()
       }
       if(padeditor.ace) padeditor.ace.focus();
     },
-    toogleDropDown: function(moduleName)
+    toggleDropDown: function(moduleName, cb)
     {
-      var modules = ["settings", "importexport", "embed", "users"];
+      var modules = ["settings", "connectivity", "importexport", "embed", "users"];
       
       // hide all modules and remove highlighting of all buttons
       if(moduleName == "none")
       {
+        var returned = false
         for(var i=0;i<modules.length;i++)
         {
           //skip the userlist
@@ -204,9 +209,11 @@ var padeditbar = (function()
           if(module.css('display') != "none")
           {
             $("#" + modules[i] + "link").removeClass("selected");
-            module.slideUp("fast");
+            module.slideUp("fast", cb);
+            returned = true;
           }
         }
+        if(!returned && cb) return cb();
       }
       else 
       {
@@ -224,7 +231,7 @@ var padeditbar = (function()
           else if(modules[i]==moduleName)
           {
             $("#" + modules[i] + "link").addClass("selected");
-            module.slideDown("fast");
+            module.slideDown("fast", cb);
           }
         }
       }
@@ -246,13 +253,13 @@ var padeditbar = (function()
       {
         var basePath = document.location.href.substring(0, document.location.href.indexOf("/p/"));
         var readonlyLink = basePath + "/p/" + clientVars.readOnlyId;
-        $('#embedinput').val("<iframe name='embed_readonly' src='" + readonlyLink + "?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=600 height=400>");
+        $('#embedinput').val("<iframe name='embed_readonly' src='" + readonlyLink + "?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=600 height=400></iframe>");
         $('#linkinput').val(readonlyLink);
       }
       else
       {
         var padurl = window.location.href.split("?")[0];
-        $('#embedinput').val("<iframe name='embed_readwrite' src='" + padurl + "?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=600 height=400>");
+        $('#embedinput').val("<iframe name='embed_readwrite' src='" + padurl + "?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=600 height=400></iframe>");
         $('#linkinput').val(padurl);
       }
     }
