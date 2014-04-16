@@ -154,6 +154,8 @@ Separator.prototype.render = function () {
 
 module.exports = {
   availableButtons: {
+    home: defaultButtonAttributes("home"),
+
     bold: defaultButtonAttributes("bold"),
     italic: defaultButtonAttributes("italic"),
     underline: defaultButtonAttributes("underline"),
